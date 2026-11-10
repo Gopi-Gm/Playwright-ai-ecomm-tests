@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "lib": ["ES2022", "DOM"],
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "outDir": "dist"
+  },
+  "include": [
+    "playwright.config.ts",
+    "tests/**/*.ts",
+    "utils/**/*.ts",
+    "pages/**/*.ts",
+    "fixtures/**/*.ts",
+    "api/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

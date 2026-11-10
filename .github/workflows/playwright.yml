@@ -1,0 +1,136 @@
+name: Playwright UI & API Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  ui-tests:
+    name: UI Tests (@web)
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run UI tests (@web)
+        run: npx playwright test --grep @web
+
+      - name: Upload Playwright report (UI)
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-ui
+          path: |
+            playwright-report/
+            reports/
+          retention-days: 30
+
+      - name: Upload Allure results (UI)
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-ui
+          path: allure-results/
+          retention-days: 30
+
+  api-tests:
+    name: API Tests (@api)
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run API tests (@api)
+        run: npx playwright test --grep @api
+
+      - name: Upload Playwright report (API)
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-api
+          path: |
+            playwright-report/
+            reports/
+          retention-days: 30
+
+      - name: Upload Allure results (API)
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-api
+          path: allure-results/
+          retention-days: 30
+
+  allure-report:
+    name: Generate Allure Report
+    needs: [ui-tests, api-tests]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download Allure results (UI)
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results-ui
+          path: allure-results-ui
+
+      - name: Download Allure results (API)
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results-api
+          path: allure-results-api
+
+      - name: Merge Allure results
+        run: |
+          mkdir -p allure-results
+          cp -r allure-results-ui/* allure-results/ 2>/dev/null || true
+          cp -r allure-results-api/* allure-results/ 2>/dev/null || true
+
+      - name: Generate Allure report
+        run: npx allure generate ./allure-results -o ./allure-report --clean || true
+
+      - name: Upload Allure report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30

@@ -1,0 +1,48 @@
+{
+  "name": "playwright-ai-ecomm-tests",
+  "version": "1.0.0",
+  "description": "Playwright + TypeScript automation framework for ShopLab e-commerce application",
+  "main": "index.js",
+  "scripts": {
+    "test:api": "playwright test --grep @api",
+    "test:web": "playwright test --grep @web",
+    "test:master": "playwright test --grep @master",
+    "test:sanity": "playwright test --grep @sanity",
+    "test:regression": "playwright test --grep @regression",
+    "test:e2e": "playwright test --grep @e2e",
+    "test:datadriven": "playwright test --grep @datadriven",
+    "test:master:headed": "playwright test --grep @master --headed",
+    "test:sanity:headed": "playwright test --grep @sanity --headed",
+    "test:sanity:debug": "playwright test --grep @sanity --debug",
+    "allure:generate": "allure generate ./allure-results -o ./allure-report --clean",
+    "allure:open": "allure open ./allure-report",
+    "allure:report": "npm run allure:generate && npm run allure:open",
+    "test:k6": "k6 run k6/main.js",
+    "test:k6:smoke": "k6 run -e SCENARIO=smoke k6/main.js",
+    "test:k6:load": "k6 run -e SCENARIO=load k6/main.js",
+    "test:k6:stress": "k6 run -e SCENARIO=stress k6/main.js",
+    "test:k6:all": "k6 run -e SCENARIO=all k6/main.js",
+    "test:k6:dashboard": "k6 run -o web-dashboard k6/main.js",
+    "test:k6:open": "powershell -Command \"Start-Process reports/k6/summary.html\"",
+    "test:k6:report": "k6 run --summary-export=reports/k6/k6-summary.json k6/main.js",
+    "test:k6:cloud": "k6 cloud run k6/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@faker-js/faker": "^9.9.0",
+    "ajv": "^8.17.1",
+    "allure-playwright": "^3.3.0",
+    "csv-parse": "^5.6.0",
+    "dotenv": "^16.4.7",
+    "luxon": "^3.6.1",
+    "mysql2": "^3.14.0",
+    "xlsx": "^0.18.5"
+  }
+}

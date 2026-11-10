@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "bash:npx playwright test:*",
+      "bash:npx playwright:*",
+      "bash:npm run test:*",
+      "bash:npm install",
+      "bash:npm ci",
+      "read:*",
+      "write:*"
+    ],
+    "deny": [
+      "bash:rm -rf /*",
+      "bash:sudo *"
+    ]
+  }
+}

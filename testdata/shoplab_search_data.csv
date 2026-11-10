@@ -1,0 +1,8 @@
+searchTerm,expectedResultCount,expectedProductName
+keyboard,1,Mechanical Keyboard
+audio,1,Wireless Bluetooth Headphones
+gaming,1,Gaming Controller
+accessories,2,LED Desk Lamp
+computing,4,Mechanical Keyboard
+nomatch,0,
+

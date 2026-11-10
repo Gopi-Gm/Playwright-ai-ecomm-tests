@@ -1,0 +1,11 @@
+[
+  { "productId": "p1", "name": "Wireless Bluetooth Headphones", "price": 79.99, "category": "Audio",      "stock": 25, "rating": 4.5 },
+  { "productId": "p2", "name": "Mechanical Keyboard",           "price": 129.99,"category": "Computing",  "stock": 18, "rating": 4.7 },
+  { "productId": "p3", "name": "Ergonomic Wireless Mouse",      "price": 49.99, "category": "Computing",  "stock": 42, "rating": 4.4 },
+  { "productId": "p4", "name": "4K USB-C Webcam",               "price": 89.99, "category": "Computing",  "stock": 15, "rating": 4.3 },
+  { "productId": "p5", "name": "LED Desk Lamp",                 "price": 39.99, "category": "Accessories","stock": 60, "rating": 4.6 },
+  { "productId": "p6", "name": "Gaming Controller",             "price": 59.99, "category": "Gaming",     "stock": 30, "rating": 4.8 },
+  { "productId": "p7", "name": "Portable Power Bank 20000mAh",  "price": 34.99, "category": "Accessories","stock": 50, "rating": 4.5 },
+  { "productId": "p8", "name": "USB-C Hub 7-in-1",              "price": 44.99, "category": "Computing",  "stock": 22, "rating": 4.2 }
+]
+
